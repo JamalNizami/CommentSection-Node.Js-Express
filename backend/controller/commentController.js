@@ -12,10 +12,11 @@ const Comment = require('../model/commentModel')
 // gettinh All comments
 
 const getComments = asyncHandler (async (req,res)=> {  
-
-    res.status(200).json({Message: "im all comments"})
+    const comments = await Comment.find(req.body);
+    res.status(200).json({comments})
 
 })
+
 
 
 // Adding a comment 
@@ -26,4 +27,4 @@ const setComment = asyncHandler (async (req, res)=> {
 })
 
 
-module.exports = {setComment,getComments}
+module.exports = {setComment  , getComments}
