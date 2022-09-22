@@ -3,12 +3,6 @@ const asyncHandler = require('express-async-handler')
 
 const Comment = require('../model/commentModel')
 
-// Gdding a comment 
-// const getComment = asyncHandler(async (req, res) => {
-//     const comments = await Comment.find(req.body.id);
-//     res.status(200).json(comments);
-//   });
-
 // gettinh All comments
 
 const getComments = asyncHandler (async (req,res)=> {  
@@ -16,6 +10,21 @@ const getComments = asyncHandler (async (req,res)=> {
     res.status(200).json({comments})
 
 })
+
+const deleteComment = asyncHandler(async (req,res)=>{
+    const comment = await Comment.findById(req.params.id)
+    await comment.remove()
+    res.status(200).json({Message:"comment is deleted"})
+
+} )
+
+const updateComment = asyncHandler(async (req,res)=> {
+    const comment = await Comment.findByIdAndUpdate(req.params.id ,req.body ,{
+        new : true
+    })
+    res.status(200).json({Message:"comment is Updated"})
+
+} )
 
 
 
@@ -27,4 +36,4 @@ const setComment = asyncHandler (async (req, res)=> {
 })
 
 
-module.exports = {setComment  , getComments}
+module.exports = {setComment  , getComments , deleteComment , updateComment }
